@@ -1,15 +1,31 @@
 package action_indicators_xp;
 
+import io.cucumber.java.After;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 public class ActionIndicatorsTest {
+    private WebDriver driver;
+    private String url = "https://stock-service-doj0.onrender.com/";
+
+    public ActionIndicatorsTest(){
+        setup();
+    }
+
+    public void setup(){
+        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
+        ChromeOptions options = new ChromeOptions().addArguments("--remote-allow-origins=*");
+        driver = new ChromeDriver(options);
+    }
+
     @Given("I am in action indicators search page")
     public void scenario1Given() {
+        driver.get(url);
     }
 
     @When("insert {string} in action field")
@@ -42,6 +58,7 @@ public class ActionIndicatorsTest {
 
     @And("the fields medium return, volatility and var should be in top table")
     public void scenario1ThenAnd3() {
+
     }
 
     @Given("I am in action indicators search page 2")
@@ -58,5 +75,10 @@ public class ActionIndicatorsTest {
 
     @And("the main table should not be displayed")
     public void scenario2ThenAnd1(){
+    }
+
+    @After
+    public void exit() {
+        driver.quit();
     }
 }
