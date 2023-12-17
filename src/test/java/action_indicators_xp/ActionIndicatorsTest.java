@@ -39,29 +39,29 @@ public class ActionIndicatorsTest {
     }
 
     @Given("I am in action indicators search page")
-    public void scenario1Given() {
+    public void given() {
         driver.get(url);
     }
 
     @When("insert {string} in action field")
-    public void scenario1When(String action) {
+    public void when(String action) {
         driver.findElement(By.id("id_nome")).sendKeys(action);
     }
 
     @And("insert {string} in initial date field")
-    public void scenario1WhenAnd1(String initialDate) throws ParseException {
+    public void whenAnd1(String initialDate) throws ParseException {
         this.initialDate = stringToDate(initialDate, "MM-dd-yyyy");
         driver.findElement(By.id("id_data_inicial")).sendKeys(initialDate);
     }
 
     @And("insert {string} in final date field")
-    public void scenario1WhenAnd2(String finalDate) throws ParseException {
+    public void whenAnd2(String finalDate) throws ParseException {
         this.finalDate = stringToDate(finalDate, "MM-dd-yyyy");
         driver.findElement(By.id("id_data_final")).sendKeys(finalDate);
     }
 
     @And("click in submit button")
-    public void scenario1WhenAnd3() {
+    public void whenAnd3() {
         driver.findElement(By.cssSelector("button[type=submit]")).click();
     }
 
@@ -111,20 +111,10 @@ public class ActionIndicatorsTest {
         assertTrue(topTableHeaders.contains("var (value-at-risk)"));
     }
 
-    @Given("I am in action indicators search page 2")
-    public void scenario2Given(){
-    }
-
-    @When("insert {string} in action field 2")
-    public void scenario2When(String action){
-    }
-
     @Then("an error message should be displayed")
     public void scenario2Then(){
-    }
-
-    @And("the main table should not be displayed")
-    public void scenario2ThenAnd1(){
+        String text = driver.findElement(By.className("container")).getText();
+        assertTrue(text.contains("Empresa não encontrada ou falha no download dos dados!"));
     }
 
     @After
